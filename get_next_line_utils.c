@@ -22,34 +22,27 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-void	*ft_memset(void *ptr, int value, size_t num)
+void	*ft_calloc(size_t num, size_t size)
 {
-	unsigned char	*byte_ptr;
+	unsigned char	*ptr;
+	size_t			total_size;
 	size_t			i;
 
-	byte_ptr = (unsigned char *)ptr;
+	if (num == 0 || size == 0)
+		return (NULL);
+	total_size = num * size;
+	if (total_size / num != size)
+		return (NULL);
+	ptr = (unsigned char *)malloc(total_size);
+	if (!ptr)
+		return (NULL);
 	i = 0;
-	while (i < num)
+	while (i < total_size)
 	{
-		byte_ptr[i] = (unsigned char)value;
+		ptr[i] = 0;
 		i++;
 	}
 	return (ptr);
-}
-
-void	*ft_calloc(size_t num, size_t size)
-{
-	void	*ptr;
-
-	if (num != 0 && size > SIZE_MAX / num)
-		return (NULL);
-	ptr = malloc(num * size);
-	if (ptr)
-	{
-		ft_memset(ptr, '\0', num * size);
-		return (ptr);
-	}
-	return (NULL);
 }
 
 char	*ft_strchr(const char *s, int c)
