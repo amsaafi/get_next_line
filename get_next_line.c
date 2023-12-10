@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: samsaafi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/10 13:47:38 by samsaafi          #+#    #+#             */
+/*   Updated: 2023/12/10 13:47:41 by samsaafi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 char	*ft_join_and_free(char *stash, char *buffer)
@@ -27,15 +39,9 @@ char	*read_file(int fd, char *stash)
 	}
 	free(buffer);
 	if (bytes_read == 0 && (!stash || ft_strlen(stash) == 0))
-	{
-		free(stash);
-		return (NULL);
-	}
+		return (free(stash), NULL);
 	if (bytes_read == -1)
-	{
-		free(stash);
-		return (NULL);
-	}
+		return (free(stash), NULL);
 	return (stash);
 }
 
@@ -67,8 +73,8 @@ char	*get_line(char *stash)
 char	*ft_reset_stash(char *stash)
 {
 	char	*new_stash;
+	int		i;
 
-	int i, j;
 	i = 0;
 	while (stash[i] && stash[i] != '\n')
 		i++;
@@ -103,22 +109,22 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main(void)
-{
-	char	*result;
-	int		fd;
+// int	main(void)
+// {
+// 	char	*result;
+// 	int		fd;
 
-	fd = open("lines.txt", O_RDONLY);
-	if (fd == -1)
-	{
-		printf("Failed to open the file.\n");
-		return (1);
-	}
-	while ((result = get_next_line(fd)) != NULL)
-	{
-		printf("%s", result);
-		free(result);
-	}
-	close(fd);
-	return (0);
-}
+// 	fd = open("lines.txt", O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		printf("Failed to open the file.\n");
+// 		return (1);
+// 	}
+// 	while ((result = get_next_line(fd)) != NULL)
+// 	{
+// 		printf("%s", result);
+// 		free(result);
+// 	}
+// 	close(fd);
+// 	return (0);
+// }

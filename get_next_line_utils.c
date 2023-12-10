@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: samsaafi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/10 13:48:21 by samsaafi          #+#    #+#             */
+/*   Updated: 2023/12/10 13:48:23 by samsaafi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 size_t	ft_strlen(const char *str)
@@ -55,14 +67,14 @@ char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	tlen;
 	char	*ptr;
-    size_t	i;
+	size_t	i;
 	size_t	j;
 
 	tlen = (ft_strlen(s1) + ft_strlen(s2)) + 1;
 	ptr = malloc(tlen);
 	if (!ptr)
 		return (NULL);
-    i = 0;
+	i = 0;
 	while (s1[i] != '\0')
 	{
 		ptr[i] = s1[i];
