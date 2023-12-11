@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: samsaafi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_join_and_free(char *stash, char *buffer)
 {
@@ -26,7 +26,7 @@ char	*read_file(int fd, char *stash)
 	char	*buffer;
 	ssize_t	bytes_read;
 
-	buffer = ft_calloc((size_t)BUFFER_SIZE + 1, sizeof(char));
+	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!buffer)
 		return (free(stash), NULL);
 	bytes_read = 1;
@@ -91,21 +91,21 @@ char	*ft_reset_stash(char *stash)
 
 char	*get_next_line(int fd)
 {
-	static char	*stash;
+	static char	*stash[1024];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (BUFFER_SIZE >= 2147483647 || fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!stash)
-		stash = ft_calloc(1, sizeof(char));
-	if (!stash)
+	if (!stash[fd])
+		stash[fd] = ft_calloc(1, sizeof(char));
+	if (!stash[fd])
 		return (NULL);
-	if (!ft_strchr(stash, '\n'))
-		stash = read_file(fd, stash);
-	if (!stash)
+	if (!ft_strchr(stash[fd], '\n'))
+		stash[fd] = read_file(fd, stash[fd]);
+	if (!stash[fd])
 		return (NULL);
-	line = ft_get_line(stash);
-	stash = ft_reset_stash(stash);
+	line = ft_get_line(stash[fd]);
+	stash[fd] = ft_reset_stash(stash[fd]);
 	return (line);
 }
 
