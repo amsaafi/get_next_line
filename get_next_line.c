@@ -28,25 +28,27 @@ char	*read_file(int fd, char *stash)
 
 	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!buffer)
-		return (NULL);
+		return (free(stash), NULL);
 	bytes_read = 1;
 	while (bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_read <= 0)
+			break ;
 		buffer[bytes_read] = '\0';
 		stash = ft_join_and_free(stash, buffer);
 		if (ft_strchr(buffer, '\n'))
 			break ;
 	}
 	free(buffer);
-	if (bytes_read == 0 && (!stash || ft_strlen(stash) == 0))
+	if (bytes_read <= 0 && (!stash || ft_strlen(stash) == 0))
 		return (free(stash), NULL);
 	if (bytes_read == -1)
 		return (free(stash), NULL);
 	return (stash);
 }
 
-char	*get_line(char *stash)
+char	*ft_get_line(char *stash)
 {
 	char	*line;
 	int		i;
@@ -92,18 +94,17 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (BUFFER_SIZE >= 2147483647 || fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!stash)
 		stash = ft_calloc(1, sizeof(char));
+	if (!stash)
+		return (NULL);
 	if (!ft_strchr(stash, '\n'))
 		stash = read_file(fd, stash);
 	if (!stash)
-	{
-		free(stash);
 		return (NULL);
-	}
-	line = get_line(stash);
+	line = ft_get_line(stash);
 	stash = ft_reset_stash(stash);
 	return (line);
 }

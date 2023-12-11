@@ -28,7 +28,7 @@ void	*ft_calloc(size_t num, size_t size);
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlen(const char *str);
 char	*ft_strjoin(char const *s1, char const *s2);
-char	*get_line(char *stash);
+char	*ft_get_line(char *stash);
 char	*read_file(int fd, char *stash);
 char	*ft_join_and_free(char *stash, char *buffer);
 char	*ft_reset_stash(char *stash);
