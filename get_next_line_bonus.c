@@ -112,19 +112,27 @@ char	*get_next_line(int fd)
 // int	main(void)
 // {
 // 	char	*result;
-// 	int		fd;
+// 	int		fd1;
+// 	int		fd2;
 
-// 	fd = open("lines.txt", O_RDONLY);
-// 	if (fd == -1)
+// 	fd1 = open("lines1.txt", O_RDONLY);
+// 	fd2 = open("lines2.txt", O_RDONLY);
+// 	if (fd1 == -1 || fd2 == -1 || fd2 == -1)
 // 	{
 // 		printf("Failed to open the file.\n");
 // 		return (1);
 // 	}
-// 	while ((result = get_next_line(fd)) != NULL)
-// 	{
-// 		printf("%s", result);
-// 		free(result);
-// 	}
-// 	close(fd);
+// 	result = get_next_line(fd1);
+// 	printf("line[1] from fd1: %s", result);
+// 	free(result);
+// 	result = get_next_line(fd2);
+// 	printf("line[1] from fd2: %s", result);
+// 	free(result);
+// 	result = get_next_line(fd1);
+// 	printf("line[2] from fd1: %s", result);
+// 	free(result);
+
+// 	close(fd1);
+// 	close(fd2);
 // 	return (0);
 // }
