@@ -37,7 +37,7 @@ int main() {
     char *line;
     int ret;
 
-    while ((ret = get_next_line(fd, &line)) &gt; 0) {
+    while ((ret = get_next_line(fd)) &gt; 0) {
         printf("Line: %s\n", line);
         free(line);
     }
